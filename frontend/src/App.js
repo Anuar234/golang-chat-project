@@ -3,26 +3,34 @@ import Header from './components/Header/Header';
 import ChatHistory from './components/ChatHistory/ChatHistory';
 import ChatInput from './components/ChatInput/ChatInput';
 import {connect, sendMsg} from './api';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      ChatHistory: []
+      chatHistory: []  // Исправлено: строчная буква
     }
   }
 
   componentDidMount(){
     connect((msg) => {
-      console.log("New Message")
+      console.log("New Message:", msg)
       this.setState(prevState => ({
         chatHistory: [...prevState.chatHistory, msg]
       }))
       console.log(this.state);
     })
   } 
+
+  // Добавлен метод send для отправки сообщений
+  send = (event) => {
+    if(event.key === 'Enter') {
+      sendMsg(event.target.value);
+      event.target.value = ""; // Очищаем поле ввода
+    }
+  }
+
   render() {
     return(
       <div className='App'>

@@ -12,7 +12,8 @@ class Message extends Component{
     render(){
         return(
             <div className="Message">
-                {this.state.Message.body}
+                {/* Исправлено: строчная буква в message */}
+                {this.state.message.body}
             </div>
         );
     };
